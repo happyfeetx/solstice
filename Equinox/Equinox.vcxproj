@@ -76,6 +76,7 @@
     <NMakeCleanCommandLine>gradle clean</NMakeCleanCommandLine>
     <NMakeReBuildCommandLine>gradle rebuild</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>C:\Projects\Magic\Equinox\src\main\cpp\include</NMakeIncludeSearchPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeBuildCommandLine>gradle assemble</NMakeBuildCommandLine>
@@ -96,11 +97,10 @@
   <ItemGroup>
     <None Include="build.gradle" />
     <None Include="cpp.hint" />
-    <None Include="settings.gradle" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main\cpp\main.cpp" />
-    <ClCompile Include="src\main\cpp\include\Utilities.cpp" />
+    <ClCompile Include="src\main\cpp\Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\cpp\include\Utilities.hpp" />

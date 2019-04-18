@@ -1,39 +1,45 @@
-﻿allprojects { p ->
-
-	tasks.withType(AbstractLinkTask).configureEach {
-        doFirst {
-            p.projectDir.mkdirs()
-        }
-    }
-
-	plugins {
-		id 'visual-studio'
-		id 'xcode'
-		id 'base'
-		id 'cpp-application'
-		id 'cpp-library'
-	}
+﻿plugins {
+	id 'cpp-application'
+	id 'cpp-library'
+	id 'visual-studio'
+	id 'xcode'
+	id 'base'
 }
 
-project(':app') {
+cppFlags += "-I" + file("C:\\Projects\\Magic\\Equinox\\src\\main\\cpp\\include").absolutePath
+
+project('app') {
 	apply plugin: 'cpp-application'
 
 	application {
 		dependencies {
-			implementation project(':utils')
+			implementation project('utils')
 		}
 
 		baseName = "Equinox"
 	}
 }
 
-project(':utils') {
+project('utils') {
 	apply plugin: 'cpp-library'
+
+	library {
+		dependencies {
+			api project('reflection')
+		}
+
+		baseName = "EquinoxUtils"
+	}
 }
 
-subprojects { subproject ->
-	
+project('reflection') {
+	apply plugin : 'cpp-library'
+}
+
+allprojects { p ->
+
 	apply plugin: 'visual-studio'
+	apply plugin: 'xcode'
 	apply plugin: 'base'
 
 	tasks.register("assembleDebuggable") {
@@ -64,4 +70,10 @@ subprojects { subproject ->
 		// Public header files are located in the root directory/Sources/<module>/include
 		publicHeaders.from rootProject.file("Sources/${subproject.name.capitalize()}/include")
 	}
+
+	tasks.withType(AbstractLinkTask).configureEach {
+        doFirst {
+            p.projectDir.mkdirs()
+        }
+    }
 }
