@@ -1,0 +1,67 @@
+﻿allprojects { p ->
+
+	tasks.withType(AbstractLinkTask).configureEach {
+        doFirst {
+            p.projectDir.mkdirs()
+        }
+    }
+
+	plugins {
+		id 'visual-studio'
+		id 'xcode'
+		id 'base'
+		id 'cpp-application'
+		id 'cpp-library'
+	}
+}
+
+project(':app') {
+	apply plugin: 'cpp-application'
+
+	application {
+		dependencies {
+			implementation project(':utils')
+		}
+
+		baseName = "Equinox"
+	}
+}
+
+project(':utils') {
+	apply plugin: 'cpp-library'
+}
+
+subprojects { subproject ->
+	
+	apply plugin: 'visual-studio'
+	apply plugin: 'base'
+
+	tasks.register("assembleDebuggable") {
+		group = "Build"
+		description = "Assemble all debuggable C++ binaries."
+		components.withType(CppExecutable) { binary ->
+			if (binary.isDebuggable()) {
+				dependsOn binary.executableFile
+			}
+		}
+
+		components.withType(CppSharedLibrary) { binary ->
+			if (binary.isDebuggable()) {
+				dependsOn binary.linkFile
+			}
+		}
+	}
+
+	buildDir = rootProject.file("build/${subproject.name.capitalize()}")
+
+	components.withType(ProductionCppComponent) {
+		// Source files located in the root directory/Sources/<module>
+		source.from rootProject.file("Source/${subproject.name.capitalize()}")
+		privateHeaders.from rootProject.file("Source/${subproject.name.capitalize()}/include")
+	}
+
+	components.withType(CppLibrary) {
+		// Public header files are located in the root directory/Sources/<module>/include
+		publicHeaders.from rootProject.file("Sources/${subproject.name.capitalize()}/include")
+	}
+}
