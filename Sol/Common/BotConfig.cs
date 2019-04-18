@@ -1,5 +1,6 @@
 ﻿#region USING DIRECTIVES
 
+using DSharpPlus;
 using Newtonsoft.Json;
 
 #endregion USING DIRECTIVES
@@ -29,6 +30,30 @@ namespace Sol.Common
         [JsonProperty("database-provider")]
         public DatabaseProvider Provider { get; private set; }
 
+        [JsonProperty("log-level")]
+        public LogLevel LogLevel { get; private set; }
+
+        [JsonProperty("log-to-file")]
+        public bool LogToFile { get; private set; }
+
+        [JsonProperty("log-path")]
+        public string LogPath { get; private set; }
+
+        [JsonProperty("username")]
+        public string Username { get; private set; }
+
+        [JsonProperty("password")]
+        public string Password { get; private set; }
+
+        [JsonProperty("hostname")]
+        public string Hostname { get; private set; }
+
+        [JsonProperty("db-name")]
+        public string DatabaseName { get; private set; }
+
+        [JsonProperty("port")]
+        public ushort Port { get; private set; }
+
         [JsonIgnore]
         public static BotConfig Default => new BotConfig()
         {
@@ -36,7 +61,20 @@ namespace Sol.Common
             SteamToken = "<Steam API Token>",
             BungieToken = "<Bungie API Token>",
             RiotToken = "<Riot Gaames API Token>",
-            YoutubeToken = "<YouTube API Token>"
+            YoutubeToken = "<YouTube API Token>",
+            LogLevel = LogLevel.Info,
+            LogToFile = false,
+            LogPath = "Resources/log.txt"
+        };
+
+        [JsonIgnore]
+        public static BotConfig Database => new BotConfig()
+        {
+            Hostname = "localhost",
+            Port = 5432,
+            DatabaseName = "SolsticeDB",
+            Username = "Database",
+            Password = ""
         };
 
     }

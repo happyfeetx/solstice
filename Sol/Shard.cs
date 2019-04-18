@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using Sol.Common;
 using Sol.Extensions;
 
@@ -46,6 +48,25 @@ namespace Sol
         {
             this.Id = sid;
             this.SharedData = shared;
+        }
+
+        public async Task StartAsync()
+            => await this.Client.ConnectAsync();
+
+        public async Task DisposeAsync()
+        {
+            await this.Client.DisconnectAsync();
+            this.Client.Dispose();
+        }
+
+        private void SetupClient()
+        {
+
+        }
+
+        private static void SetupCommands()
+        {
+            
         }
     }
 }
