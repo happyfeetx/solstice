@@ -15,12 +15,6 @@ namespace Sol.Common
         [JsonProperty("default-prefix")]
         public string DefaultPrefix { get; private set; }
 
-        [JsonProperty("steam-token")]
-        public string SteamToken { get; private set; }
-
-        [JsonProperty("youtube-token")]
-        public string YoutubeToken { get; private set; }
-
         [JsonProperty("riot-token")]
         public string RiotToken { get; private set; }
 
@@ -54,17 +48,43 @@ namespace Sol.Common
         [JsonProperty("port")]
         public ushort Port { get; private set; }
 
+        [JsonProperty("shard-count")]
+        public int ShardCount { get; private set; }
+
+        [JsonProperty("steam-key")]
+        public string SteamKey { get; private set; }
+        
+        [JsonProperty("imgur-key")]
+        public string ImgurKey { get; private set; }
+
+        [JsonProperty("omdb-key")]
+        public string OMDbKey { get; private set; }
+
+        [JsonProperty("youtube-key")]
+        public string YouTubeKey { get; private set; }
+
+        [JsonProperty("weather-key")]
+        public string WeatherKey { get; private set; }
+
+        [JsonProperty("giphy-key")]
+        public string GiphyKey { get; private set; }
+
+
         [JsonIgnore]
         public static BotConfig Default => new BotConfig()
         {
             DiscordToken = "<Discord API Token>",
-            SteamToken = "<Steam API Token>",
+            SteamKey = "<Steam API Token>",
             BungieToken = "<Bungie API Token>",
             RiotToken = "<Riot Gaames API Token>",
-            YoutubeToken = "<YouTube API Token>",
+            YouTubeKey = "<YouTube API Token>",
+            GiphyKey = "<Giphy API Token>",
+            ImgurKey = "<Imgur API Token>",
+            WeatherKey = "<OpenWeatherMaps API Key>",
             LogLevel = LogLevel.Info,
             LogToFile = false,
-            LogPath = "Resources/log.txt"
+            LogPath = "Resources/log.txt",
+            ShardCount = 1
         };
 
         [JsonIgnore]

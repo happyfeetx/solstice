@@ -1,11 +1,11 @@
-﻿#region USING DIRECTIVES
+﻿#region USING_DIRECTIVES
 
 using DSharpPlus.CommandsNext;
 
 using System.Collections.Generic;
 using System.Linq;
 
-#endregion USING DIRECTIVES
+#endregion USING_DIRECTIVES
 
 namespace Sol.Extensions
 {

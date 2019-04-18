@@ -1,25 +1,16 @@
 ﻿#region USING DIRECTIVES
 
-using System;
 using Npgsql;
-
 using Sol.Common;
+using System;
 
 #endregion USING DIRECTIVES
 
 namespace Sol.Database
 {
-    public enum DatabaseProvider
-    {
-        SQLite = 0,
-        PostgreSQL = 1,
-        SQLServer = 2,
-        CosmosDB = 3,
-        InMemory = 4
-    }
-
     public class DatabaseContextBuilder
     {
+
         private string ConnectionString { get; }
         private DatabaseProvider Provider { get; }
 
@@ -32,7 +23,8 @@ namespace Sol.Database
         public DatabaseContextBuilder(BotConfig cfg)
         {
             cfg = cfg ?? BotConfig.Database;
-            
+            this.Provider = cfg.Provider;
+
             switch (this.Provider)
             {
                 case DatabaseProvider.PostgreSQL:
@@ -50,14 +42,31 @@ namespace Sol.Database
                         TrustServerCertificate = true
                     }.ConnectionString;
                     break;
+
                 case DatabaseProvider.SQLite:
-                    this.ConnectionString = $"Data Source={cfg.DatabaseName}.db";
+                    this.ConnectionString = $"Data Source={cfg.DatabaseName}.db;";
                     break;
+
                 case DatabaseProvider.SQLServer:
                     this.ConnectionString = $@"Data Source=(localdb)\ProjectsV13;Initial Catalog={cfg.DatabaseName};Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                     break;
+
                 default:
                     throw new NotSupportedException("Unsupported database provider!");
+            }
+        }
+
+        public DatabaseContext CreateContext()
+        {
+            try
+            {
+                return new DatabaseContext(this.Provider, this.ConnectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error during database initialization:");
+                Console.WriteLine(e);
+                throw;
             }
         }
     }

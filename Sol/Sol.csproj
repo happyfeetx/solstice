@@ -7,17 +7,44 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Cosmos.Logging.Extensions.EntityFrameworkCore" Version="0.1.0" />
     <PackageReference Include="DSharpPlus" Version="4.0.0-nightly-00588" />
     <PackageReference Include="DSharpPlus.CommandsNext" Version="4.0.0-nightly-00588" />
     <PackageReference Include="DSharpPlus.Interactivity" Version="4.0.0-nightly-00588" />
     <PackageReference Include="DSharpPlus.Lavalink" Version="4.0.0-nightly-00588" />
     <PackageReference Include="DSharpPlus.Rest" Version="4.0.0-nightly-00588" />
     <PackageReference Include="DSharpPlus.VoiceNext" Version="4.0.0-nightly-00588" />
-    <PackageReference Include="Imgur.API" Version="4.0.1" />
+    <PackageReference Include="DSharpPlus.WebSocket.WebSocket4NetCore" Version="4.0.0-nightly-00588" />
+    <PackageReference Include="GiphyDotNet" Version="1.0.0" />
+    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.38.2.1488" />
+    <PackageReference Include="Humanizer" Version="2.6.2" />
+    <PackageReference Include="Humanizer.Core" Version="2.6.2" />
+    <PackageReference Include="Imgur.API" Version="5.0.0-beta1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="2.0.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0-preview3.19153.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0-preview3.19153.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2-beta1" />
     <PackageReference Include="Npgsql" Version="4.0.6" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.0-preview3" />
     <PackageReference Include="Npgsql.Json.NET" Version="4.0.6" />
+    <PackageReference Include="RedditSharp" Version="2.0.0-CI00075" />
+    <PackageReference Include="RiotSharp" Version="4.0.0" />
+    <PackageReference Include="SteamWebAPI2" Version="4.0.8" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="4.6.0-preview3.19128.7" />
+    <PackageReference Include="YoutubeExplode" Version="4.6.8" />
   </ItemGroup>
 
 </Project>
