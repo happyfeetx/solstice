@@ -1,79 +1,31 @@
-﻿plugins {
-	id 'cpp-application'
-	id 'cpp-library'
-	id 'visual-studio'
-	id 'xcode'
-	id 'base'
-}
-
-cppFlags += "-I" + file("C:\\Projects\\Magic\\Equinox\\src\\main\\cpp\\include").absolutePath
-
-project('app') {
-	apply plugin: 'cpp-application'
-
-	application {
-		dependencies {
-			implementation project('utils')
-		}
-
-		baseName = "Equinox"
-	}
-}
-
-project('utils') {
-	apply plugin: 'cpp-library'
-
-	library {
-		dependencies {
-			api project('reflection')
-		}
-
-		baseName = "EquinoxUtils"
-	}
-}
-
-project('reflection') {
-	apply plugin : 'cpp-library'
-}
-
-allprojects { p ->
-
+allprojects {
 	apply plugin: 'visual-studio'
-	apply plugin: 'xcode'
+	apply plugin: 'maven-publish'
 	apply plugin: 'base'
 
-	tasks.register("assembleDebuggable") {
-		group = "Build"
-		description = "Assemble all debuggable C++ binaries."
-		components.withType(CppExecutable) { binary ->
-			if (binary.isDebuggable()) {
-				dependsOn binary.executableFile
-			}
-		}
+	group 'com.dinnerbone.equinox'
+	version '1.0'
 
-		components.withType(CppSharedLibrary) { binary ->
-			if (binary.isDebuggable()) {
-				dependsOn binary.linkFile
+	publishing {
+		repositories {
+			maven {
+				url = '../Equinox/repo'
 			}
 		}
 	}
 
-	buildDir = rootProject.file("build/${subproject.name.capitalize()}")
-
-	components.withType(ProductionCppComponent) {
-		// Source files located in the root directory/Sources/<module>
-		source.from rootProject.file("Source/${subproject.name.capitalize()}")
-		privateHeaders.from rootProject.file("Source/${subproject.name.capitalize()}/include")
-	}
-
-	components.withType(CppLibrary) {
-		// Public header files are located in the root directory/Sources/<module>/include
-		publicHeaders.from rootProject.file("Sources/${subproject.name.capitalize()}/include")
-	}
-
-	tasks.withType(AbstractLinkTask).configureEach {
-        doFirst {
-            p.projectDir.mkdirs()
+    tasks.register("assembleDebuggable") {
+        group = "Build"
+        description = "Assemble all debuggable C++ binaries."
+        components.withType(CppExecutable) { binary ->
+            if (binary.isDebuggable()) {
+               dependsOn binary.executableFile
+            }
+        }
+        components.withType(CppSharedLibrary) { binary ->
+            if (binary.isDebuggable()) {
+               dependsOn binary.linkFile
+            }
         }
     }
 }

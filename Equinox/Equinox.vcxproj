@@ -95,15 +95,17 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="app\build.gradle" />
     <None Include="build.gradle" />
     <None Include="cpp.hint" />
+    <None Include="settings.gradle" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main\cpp\main.cpp" />
-    <ClCompile Include="src\main\cpp\Utilities.cpp" />
+    <ClCompile Include="app\src\main\cpp\main.cpp" />
+    <ClCompile Include="app\src\main\cpp\Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\main\cpp\include\Utilities.hpp" />
+    <ClInclude Include="app\src\main\cpp\Utilities.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
