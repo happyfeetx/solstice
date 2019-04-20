@@ -1,9 +1,0 @@
-plugins {
-	id 'cpp-application'
-}
-
-application {
-	dependencies {
-		implementation project(':utils')
-	}
-}
