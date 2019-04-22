@@ -97,6 +97,10 @@ namespace Sol.Common
             Password = ""
         };
 
+        public double DatabaseSyncInterval { get; internal set; }
+        public double FeedCheckInterval { get; internal set; }
+        public double FeedCheckStartDelay { get; internal set; }
+        public string GoodreadsKey { get; internal set; }
     }
 
     public enum DatabaseProvider

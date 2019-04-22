@@ -49,9 +49,10 @@ namespace Sol
         public DatabaseContextBuilder Database { get; private set; }
         public SharedData SharedData { get; private set; }
 
-        public Shard(int sid, SharedData shared)
+        public Shard(int sid, DatabaseContextBuilder dbb, SharedData shared)
         {
             this.Id = sid;
+            this.Database = dbb;
             this.SharedData = shared;
         }
 
@@ -105,12 +106,12 @@ namespace Sol
 
         private void SetupCommands()
         {
-            var cfg = new CommandsNextConfiguration() {
-                EnableDefaultHelp = false,
+            this.CNext = this.Client.UseCommandsNext(new CommandsNextConfiguration
+            {
                 EnableDms = false,
-                EnableMentionPrefix = true,
-                DmHelp = true,
                 CaseSensitive = false,
+                EnableMentionPrefix = true,
+                PrefixResolver = this.PrefixResolverAsync,
                 Services = new ServiceCollection()
                     .AddSingleton(this)
                     .AddSingleton(this.SharedData)
@@ -119,6 +120,7 @@ namespace Sol
                     .AddSingleton(new AntiInstantLeaveService(this))
                     .AddSingleton(new AntispamService(this))
                     .AddSingleton(new GiphyService(this.SharedData.Configuration.GiphyKey))
+                    .AddSingleton(new GoodreadsService(this.SharedData.Configuration.GoodreadsKey))
                     .AddSingleton(new ImgurService(this.SharedData.Configuration.ImgurKey))
                     .AddSingleton(new LinkfilterService(this))
                     .AddSingleton(new OMDbService(this.SharedData.Configuration.OMDbKey))
@@ -127,13 +129,11 @@ namespace Sol
                     .AddSingleton(new WeatherService(this.SharedData.Configuration.WeatherKey))
                     .AddSingleton(new YtService(this.SharedData.Configuration.YouTubeKey))
                     .BuildServiceProvider()
-            };
-
-            this.Client.UseCommandsNext(cfg);
+            });
 
             this.CNext.SetHelpFormatter<CustomHelpFormatter>();
 
-            this.CNext.RegisterCommands(Assembly.GetEntryAssembly());
+            this.CNext.RegisterCommands(Assembly.GetExecutingAssembly());
 
             this.CNext.RegisterConverter(new CustomActivityTypeConverter());
             this.CNext.RegisterConverter(new CustomBoolConverter());

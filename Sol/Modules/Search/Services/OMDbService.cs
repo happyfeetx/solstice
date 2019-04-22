@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Sol.Modules.Search.Common;
 using Sol.Modules.Search.Extensions;
 using Sol.Services;
+using DSharpPlus.Interactivity.EventHandling;
 
 #endregion USING_DIRECTIVES
 

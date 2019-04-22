@@ -11,6 +11,7 @@ using System.Text;
 using Sol.Common;
 using Sol.Modules.Search.Common;
 using Sol.Modules.Search.Services;
+using DSharpPlus.Interactivity.EventHandling;
 
 #endregion USING_DIRECTIVES
 
@@ -20,7 +21,7 @@ namespace Sol.Modules.Search.Extensions
     {
         private static readonly string _unknown = Formatter.Italic("Unknown");
 
-        public static DiscordEmbed ToDiscordEmbed(this IpInfo info, DiscordColor? color = null)
+        public static DiscordEmbedBuilder ToDiscordEmbed(this IpInfo info, DiscordColor? color = null)
         {
             var emb = new DiscordEmbedBuilder()
             {
@@ -38,7 +39,7 @@ namespace Sol.Modules.Search.Extensions
 
             emb.WithFooter("Powered by ip-api.");
 
-            return emb.Build();
+            return emb;
         }
 
         public static IReadOnlyList<Page> ToDiscordPages(this GoodreadsSearchInfo info)
@@ -63,13 +64,13 @@ namespace Sol.Modules.Search.Extensions
 
                 emb.WithFooter($"Fethed results using Goodreads API in {info.QueryTime}s");
 
-                pages.Add(new Page() { Embed = emb.Build() });
+                pages.Add(new Page(null, emb));
             }
 
             return pages.AsReadOnly();
         }
 
-        public static DiscordEmbed ToDiscordEmbed(this MovieInfo info, DiscordColor? color = null)
+        public static DiscordEmbedBuilder ToDiscordEmbed(this MovieInfo info, DiscordColor? color = null)
         {
             var emb = new DiscordEmbedBuilder()
             {
@@ -108,14 +109,13 @@ namespace Sol.Modules.Search.Extensions
 
             emb.WithFooter("Powered by OMDb.");
 
-            return emb.Build();
+            return emb;
         }
 
         public static Page ToDiscordPage(this MovieInfo info, DiscordColor? color = null)
         {
-            return new Page()
-            {
-                Embed = info.ToDiscordEmbed(color)
+            return new Page(null, info.ToDiscordEmbed(null)) {
+
             };
         }
 
@@ -205,23 +205,6 @@ namespace Sol.Modules.Search.Extensions
             }
 
             return embeds.AsReadOnly();
-        }
-
-        public static DiscordEmbed ToDiscordEmbed(this XkcdComic comic, DiscordColor? color = null)
-        {
-            var emb = new DiscordEmbedBuilder()
-            {
-                Title = $"xkcd #{comic.Id} : {comic.Title}",
-                ImageUrl = comic.ImageUrl,
-                Url = XkcdService.CreateUrlForComic(comic.Id)
-            };
-
-            if (!(color is null))
-                emb.WithColor(color.Value);
-
-            emb.WithFooter($"Publish date: {comic.Month}/{comic.Year}");
-
-            return emb.Build();
         }
     }
 }

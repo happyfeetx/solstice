@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 
+using Sol.Common;
 using Sol.Common.Attributes;
 using Sol.Database;
 using Sol.Database.Models;

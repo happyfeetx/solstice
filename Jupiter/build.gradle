@@ -1,0 +1,10 @@
+plugins {
+    id 'visual-studio'
+    id 'cpp-library'
+    id 'base'
+    id 'cpp-unit-test'
+}
+
+library {
+    
+}

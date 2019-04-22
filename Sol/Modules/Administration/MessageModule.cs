@@ -31,9 +31,23 @@ namespace Sol.Modules.Administration
         }
 
         [Command("pin")]
-        public async Task PinMessageAsync(CommandContext ctx )
+        public async Task PinMessageAsync(CommandContext ctx, long? message)
         {
+            if (message == null || message == 0) {
+                message = 123456789012;
 
+                var emb = new DiscordEmbedBuilder() {
+                    Title = "Error!",
+                    Description = "Invalid command usage! This command must include a message ID number.\n" + 
+                                 $"Example: {message}"
+                };
+
+                await ctx.RespondAsync();
+
+                throw new InvalidCommandUsageException("Invalid command usage!");
+            }
+
+            await (ctx.Message as DiscordMessage).PinAsync();
         }
     }
 }
