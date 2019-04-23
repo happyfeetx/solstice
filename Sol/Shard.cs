@@ -77,7 +77,7 @@ namespace Sol
 
         private void SetupClient(AsyncEventHandler<GuildDownloadCompletedEventArgs> onGuildDownloadCompleted)
         {
-            var cfg = new DiscordConfiguration()
+            DiscordConfiguration cfg = new DiscordConfiguration()
             {
                 Token = this.SharedData.Configuration.DiscordToken,
                 TokenType = TokenType.Bot,
